@@ -2,6 +2,7 @@ const allowedCors = [
   "https://practicum.yandex.ru",
   "https://students-projects.ru",
   "localhost:3000",
+  "mongodb://localhost:27017/pindie"
 ];
 
 function cors(req, res, next) {
