@@ -11,9 +11,34 @@ const updateGame = require("../middlewares/games");
 const sendGameUpdated = require("../controllers/games");
 const deleteGame = require("../middlewares/games");
 const sendGameDeleted = require("../controllers/games");
+const checkAuth  = require("../middlewares/auth.js");
+const checkIsGameExists  = require("../middlewares/games.js");
+const checkIfCategoriesAvaliable  = require("../middlewares/categories.js");
+const checkEmptyFields  = require("../middlewares/games.js");
+const checkIfUsersAreSafe = require("../middlewares/users.js");
+const checkIsVoteRequest = require("../middlewares/games.js");
 
-gamesRouter.post("/games", findAllGames, createGame, sendGameCreated);
+gamesRouter.post(
+  "/games",
+  findAllGames,
+  checkIsGameExists,
+  checkIfCategoriesAvaliable,
+  checkEmptyFields,
+  checkAuth,
+  createGame,
+  sendGameCreated
+);
 gamesRouter.get("/games/:id", findGameById, sendGameById);
-gamesRouter.put("/games/:id", findGameById, updateGame,  sendGameUpdated);
-gamesRouter.delete("/games/:id", deleteGame, sendGameDeleted);
+gamesRouter.put(
+  "/games/:id",
+  findGameById,
+  checkIsVoteRequest,
+  checkIfUsersAreSafe,
+  checkIfCategoriesAvaliable,
+  checkEmptyFields,
+  checkAuth,
+  updateGame,
+  sendGameUpdated
+);
+gamesRouter.delete("/games/:id", checkAuth, deleteGame, sendGameDeleted);
 module.exports = gamesRouter;
