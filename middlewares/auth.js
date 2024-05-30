@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+
 const checkAuth = (req, res, next) => {
   const { authorization } = req.headers;
 
@@ -13,16 +14,16 @@ const checkAuth = (req, res, next) => {
   } catch (err) {
     return res.status(401).send({ message: "Необходима авторизация" });
   }
-
   next();
 };
-// Импорты и другие миддлвары
 
 const checkCookiesJWT = (req, res, next) => {
+  console.log(req.cookies.jwt);
   if (!req.cookies.jwt) {
     return res.redirect("/");
   }
   req.headers.authorization = `Bearer ${req.cookies.jwt}`;
   next();
 };
-module.exports = checkAuth, checkCookiesJWT;
+
+module.exports = { checkAuth, checkCookiesJWT };
