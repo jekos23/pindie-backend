@@ -8,6 +8,7 @@ const apiRouter = require("express").Router();
 apiRouter.use("/api", gamesRouter);
 apiRouter.use("/api", usersRouter);
 apiRouter.use("/api", categoriesRouter);
-apiRouter.use("/api", authRouter); // Добавляем роутер для аутентификации
+apiRouter.use("/api", authRouter); // Добавл
 
 module.exports = apiRouter;
+
